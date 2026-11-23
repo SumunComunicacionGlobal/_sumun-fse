@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 // Agrega un filtro para el bloque de consulta de WordPress
 // que muestra los posts relacionados en la página de un post y los filtra por categorías
@@ -55,74 +58,32 @@ function cmplz_show_banner_on_click() {
 }
 add_action( 'wp_footer', 'cmplz_show_banner_on_click' );
 
-function smn_get_anchor_menu_items() {
+// TEMPORAL: mantiene abierta la superposición móvil del menú para maquetarla. Poner a false o borrar al terminar.
+define( 'SMN_DEBUG_NAV_OVERLAY', false );
 
-    $anchor_menu = get_field('anchor_menu' );
-    if ( ! $anchor_menu ) return false;
+function smn_force_nav_overlay_open( $block_content ) {
+    $processor = new WP_HTML_Tag_Processor( $block_content );
 
-    $items = array_map('trim', explode(',', $anchor_menu));
-    if (empty($items)) return false;
-
-    $output = '';
-
-    foreach ($items as $item) {
-        list($id, $label) = array_map('trim', explode(':', $item, 2));
-        if ($id && $label) {
-            $id = ltrim($id, '#');
-            $output .= sprintf(
-            '<li class="wp-block-navigation-item wp-block-navigation-link"><a class="wp-block-navigation-item__content" href="#%s"><span class="wp-block-navigation-item__label">%s</span></a></li>',
-                esc_attr($id),
-                esc_html($label)
-            );
-        }
+    if ( ! $processor->next_tag( 'nav' ) ) {
+        return $block_content;
     }
 
-    return $output;
-
-}
-
-add_filter( 'render_block_core/navigation', 'wpdocs_modify_nav_menu_for_admins', 10, 2 );
-function wpdocs_modify_nav_menu_for_admins( $block_content, $block ) {
-
-    if ( isset( $block['blockName'] ) && 'core/navigation' === $block['blockName'] ) {
-
-        $anchor_menu_items = smn_get_anchor_menu_items();
-        if ( ! $anchor_menu_items ) return $block_content;
-
-        if ( !isset( $block['attrs']['ref'] ) || $block['attrs']['ref'] != 25834 ) return $block_content; 
-
-        // Remove all HTML inside <ul class="wp-block-navigation__container">...</ul>
-        // Usa una función DOM para reemplazar solo el contenido del ul principal con la clase wp-block-navigation__container
-        $dom = new DOMDocument();
-        libxml_use_internal_errors(true); // Suprime warnings por HTML5
-        $dom->loadHTML('<?xml encoding="utf-8" ?>' . $block_content);
-
-        $xpath = new DOMXPath($dom);
-        $ul_nodes = $xpath->query('//ul[contains(concat(" ", normalize-space(@class), " "), " wp-block-navigation__container ")]');
-
-        if ($ul_nodes->length > 0) {
-            $ul = $ul_nodes->item(0);
-
-            // Elimina todos los hijos actuales del ul
-            while ($ul->firstChild) {
-            $ul->removeChild($ul->firstChild);
-            }
-
-            // Crea un fragmento con los nuevos items
-            $fragment = $dom->createDocumentFragment();
-            $fragment->appendXML($anchor_menu_items);
-            $ul->appendChild($fragment);
-
-            // Guarda el HTML modificado, quitando el doctype y html/body extra
-            $body = $dom->getElementsByTagName('body')->item(0);
-            $block_content = '';
-            foreach ($body->childNodes as $child) {
-            $block_content .= $dom->saveHTML($child);
-            }
-        }
-        libxml_clear_errors();
-
+    while ( $processor->next_tag( array( 'class_name' => 'wp-block-navigation__responsive-container' ) ) ) {
+        $processor->add_class( 'is-menu-open' );
+        $processor->add_class( 'has-modal-open' );
+        // Without these directives the Interactivity API can no longer remove the open classes.
+        $processor->remove_attribute( 'data-wp-class--is-menu-open' );
+        $processor->remove_attribute( 'data-wp-class--has-modal-open' );
     }
 
-    return $block_content;
+    return $processor->get_updated_html();
 }
+
+add_filter( 'render_block_core/navigation', function ( $block_content ) {
+    if ( ! SMN_DEBUG_NAV_OVERLAY || ! is_user_logged_in() ) {
+        return $block_content;
+    }
+
+    return smn_force_nav_overlay_open( $block_content );
+} );
+

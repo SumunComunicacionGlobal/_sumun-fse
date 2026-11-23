@@ -1,6 +1,6 @@
 @use '../abstracts/mixins' as *;
 
-.is-style-group-horizontal-scroll, .is-style-group-horizontal-scroll-btns {
+.is-style-group-horizontal-scroll, .is-style-group-horizontal-scroll--btns {
     padding: var(--wp--custom--layout--gap);
     gap: var(--wp--custom--layout--gap);
     display: flex;
@@ -83,7 +83,7 @@
             width: 56px;
             height: 56px;
             background-color: var(--wp--preset--color--neutral-60);
-            mask-image: url(./assets/icons/IconOutlineArrow.svg);
+            mask-image: url(./assets/icons-collection/IconOutlineArrow.svg);
             mask-size: contain;
             mask-repeat: no-repeat;
             mask-position: center;

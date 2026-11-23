@@ -27,7 +27,6 @@ wp.domReady( () => {
 			name: 'check-separator-list',
 			label: 'Check con separador',
 		},
-
 		{
 			name: 'check-list',
 			label: 'Check simple',
@@ -48,6 +47,7 @@ wp.domReady( () => {
 			label: 'Contorno con Flecha',
 		},
 	] );
+
 	wp.blocks.registerBlockStyle( 'core/paragraph', [
 		{
 			name: 'default',
@@ -55,12 +55,28 @@ wp.domReady( () => {
 			isDefault: true,
 		},
 		{
-			name: 'title-has-image',
-			label: 'Imagen integrada',
+			name: 'badge',
+			label: 'Píldora',
 		},
 		{
-			name: 'pill-paragraph',
+			name: 'eyebrow',
+			label: 'Eyebrow',
+		}
+	] );
+
+		wp.blocks.registerBlockStyle( 'core/heading', [
+		{
+			name: 'default',
+			label: 'Default',
+			isDefault: true,
+		},
+		{
+			name: 'badge',
 			label: 'Píldora',
+		},
+		{
+			name: 'eyebrow',
+			label: 'Eyebrow',
 		}
 	] );
 
@@ -99,7 +115,7 @@ wp.domReady( () => {
 			label: 'Margin vertical (top & bottom 80px)',
 		},
 		{
-			name: 'pill-paragraph',
+			name: 'badge',
 			label: 'Párrafos en píldora',
 		},
 		{
@@ -109,6 +125,10 @@ wp.domReady( () => {
 		{
 			name: 'carousel',
 			label: 'Carrusel',
+		},
+		{
+			name: 'card',
+			label: 'Card',
 		}
 	] );
 	
@@ -119,7 +139,7 @@ wp.domReady( () => {
 			icon: 'leftright',
 			description: 'Items in Horizontal scroll',
 			isDefault: false,
-			atttibutes: {
+			attributes: {
 				className: 'is-style-group-horizontal-scroll',
 			},
 		},
@@ -131,7 +151,7 @@ wp.domReady( () => {
 			icon: 'sort',
 			description: 'Items in Horizontal scroll with buttons',
 			isDefault: false,
-			atttibutes: {
+			attributes: {
 				className: 'is-style-group-horizontal-scroll--btns',
 			},
 		},

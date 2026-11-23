@@ -1,15 +1,15 @@
 /*!
-Theme Name: Sumun 2026
+Theme Name: Smn FSE
 Theme URI: https://sumun.net
-Author: Sumun
+Author: Sumun.net
 Author URI: https://sumun.net
-Description: Sumun Hybrid Theme 2026
-Version: 1.0.3
+Description: Smn FSE Theme
+Version: 0.0.0
 Tested up to: 8.2
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
 License URI: LICENSE
-Text Domain: sumun
+Text Domain: smn
 Tags: hybrid, sass, 
 
 This theme, like WordPress, is licensed under the GPL.
@@ -76,3 +76,6 @@ Use it to make something cool, have fun, and share what you've learned.
 # Plugins
 --------------------------------------------------------------*/
 @use "plugins/_complianz";
+@use "plugins/_rankmath";
+@use "plugins/_mailchimp4wp";
+@use "plugins/_facetwp";

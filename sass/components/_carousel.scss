@@ -18,7 +18,7 @@
         z-index: 2;
 
         &::before {
-            content: url("assets/icons/arrow-right.svg");
+            content: url("assets/icons-collection/arrow-right.svg");
             width: 3.5rem;
             height: 3.5rem;
             display: flex;
@@ -85,7 +85,7 @@
 .carrusel-equipo {
 
     .slick-slide > .wp-block-group {
-        border-radius: var(--wp--custom--border-radius--1);
+        border-radius: var(--wp--preset--border-radius--1);
         overflow: hidden;
         max-width: 300px;
     }

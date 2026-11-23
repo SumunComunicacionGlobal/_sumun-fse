@@ -15,7 +15,7 @@
             }
             
             &::after {
-                content: url(./assets/icons/chevron-down.svg);
+                content: url(./assets/icons-collection/chevron-down.svg);
                 right: -1.5rem;
                 top: 0;
                 padding-left: 1rem;
@@ -39,7 +39,7 @@
             }
     
             .rank-math-question::after {
-                content: url(./assets/icons/chevron-up.svg);
+                content: url(./assets/icons-collection/chevron-up.svg);
             }
         }
     }

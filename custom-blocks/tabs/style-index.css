@@ -36,7 +36,7 @@
         background-color: var(--wp--preset--color--background);
         padding: var(--wp--preset--spacing--10);
         margin-bottom: var(--wp--preset--spacing--05);
-        border-radius: var(--wp--custom--border-radius--1);
+        border-radius: var(--wp--preset--border-radius--1);
         cursor: pointer;
         transition: all .3s ease;
 
@@ -59,7 +59,7 @@
         margin: 0;
         order: 1;
         background-color: var(--wp--preset--color--black);
-        border-radius: var(--wp--custom--border-radius--1);
+        border-radius: var(--wp--preset--border-radius--1);
         padding: var(--wp--preset--spacing--10);
 
         &.active {
